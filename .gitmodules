@@ -1,0 +1,9 @@
+[submodule "review-prompts"]
+	path = review-prompts
+	url = git@github.com:masoncl/review-prompts.git
+[submodule "semcode"]
+	path = semcode
+	url = git@github.com:facebookexperimental/semcode.git
+[submodule "linux"]
+	path = linux
+	url = git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
