@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "semcode": {
+	"command": "../semcode/target/release/semcode-mcp",
+	"cwd": "./linux",
+	"args": []
+    }
+  }
+}
