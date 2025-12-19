@@ -1,9 +1,26 @@
 {
+  "tools": {
+      "allowed": [
+      "glob",
+      "list_directory",
+      "read_file",
+      "read_many_files",
+      "replace",
+      "save_memory",
+      "search_file_content",
+      "ShellTool(diff)",
+      "ShellTool(wc)",
+      "write_file",
+      "auto_edit",
+      "run_shell_command"
+    ]
+  },
   "mcpServers": {
     "semcode": {
-	"command": "../semcode/target/release/semcode-mcp",
-	"cwd": "./linux",
-	"args": []
+      "command": "../semcode/target/release/semcode-mcp",
+      "cwd": "./linux",
+      "args": [],
+      "trust": true
     }
   }
 }
