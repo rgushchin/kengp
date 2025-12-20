@@ -276,7 +276,7 @@ It can process a single commit (HEAD), a number of recent commits, or a range of
             # Run ai_review
             prompt = f"Using @./review-prompts/review-core.md prompt as a guidance run a deep dive regression analysis of the top commit in the ./linux directory. If you cannot read the prompt, bail out."
             
-            gemini_cmd = f"/google/bin/releases/gemini-cli/tools/gemini --approval-mode auto_edit -m {model_name} '{prompt}'"
+            gemini_cmd = f"gemini --approval-mode auto_edit -m {model_name} '{prompt}'"
 
             # Run gemini from base_dir (current folder)
             print(f"  Running analysis...")
