@@ -139,7 +139,22 @@ def resolve_commits(arg, cwd):
         # Assume it's a range or specific ref
         verify_range(arg, cwd)
         result = run_command(f"git rev-list --reverse {arg}", cwd=cwd)
-        return result.stdout.strip().splitlines()
+        commits = result.stdout.strip().splitlines()
+
+        # If it's a range "A..B", we want to include A as well.
+        if arg and ".." in arg and "..." not in arg:
+            start_ref = arg.split("..")[0]
+            if start_ref:
+                try:
+                    res = run_command(f"git rev-parse {start_ref}", cwd=cwd, check=False)
+                    if res.returncode == 0:
+                        start_sha = res.stdout.strip()
+                        if start_sha not in commits:
+                            commits.insert(0, start_sha)
+                except Exception:
+                    pass
+
+        return commits
 
 def check_environment():
     """Checks if review-prompts exists in the current directory."""
@@ -147,8 +162,13 @@ def check_environment():
     review_prompts_dir = os.path.join(cwd, "review-prompts")
 
     if not os.path.isdir(review_prompts_dir):
-         print(f"Error: Directory '{review_prompts_dir}' not found in current path.")
-         sys.exit(1)
+        print(f"Error: Directory '{review_prompts_dir}' not found in current path.")
+        sys.exit(1)
+
+    core_prompt = os.path.join(review_prompts_dir, "review-core.md")
+    if not os.path.isfile(core_prompt):
+        print(f"Error: Core prompt file '{core_prompt}' not found.")
+        sys.exit(1)
 
 def main():
     description = """Run ai_review on git commits.
