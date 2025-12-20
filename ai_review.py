@@ -187,7 +187,7 @@ It can process a single commit (HEAD), a number of recent commits, or a range of
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
     parser.add_argument("revision", nargs="?", help="Git commit range, number of commits, or empty for HEAD.")
-    parser.add_argument("-m", "--model", default="gemini-3-flash-preview", help="LLM model to use (default: gemini-3-flash-preview).")
+    parser.add_argument("-m", "--model", default="gemini-3-pro-preview", help="LLM model to use (default: gemini-3-pro-preview).")
     args = parser.parse_args()
 
     check_environment()
