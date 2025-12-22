@@ -360,7 +360,7 @@ It can process a single commit (HEAD), a number of recent commits, or a range of
         start_sha_short = run_command(f"git rev-parse --short {commits[0]}", cwd=source_tree, capture_output=True).stdout.strip()
         end_sha_short = run_command(f"git rev-parse --short {commits[-1]}", cwd=source_tree, capture_output=True).stdout.strip()
         current_time_str = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
-        report_filename = f"{start_sha_short}..{end_sha_short}_{current_time_str}.review.txt"
+        report_filename = f"{current_time_str}_{start_sha_short}..{end_sha_short}.report.txt"
         
         try:
             with open(report_filename, 'w') as f:
