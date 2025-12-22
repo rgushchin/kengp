@@ -58,6 +58,11 @@ A kernel commit message is a historical document.
    - Treat errors and warnings as strong suggestions (ignore only with strong justification).
    - Ignore the warning about the presence of Gerrit Id tag
 
+4. **Kernel Docs verification:**
+   - Run ./scripts/kernel-doc -Wall -v -none <source file> to generate kernel docs
+   - Make sure new changes do not introduce new errors or warnings
+   - If there are new errors and warnings, fix them and repeat
+
 4. **Fill CC tags:**
    - Use `scripts/get_maintainer.pl <patch_file>` to determine the correct `Cc:` list and append it to the commit message.
    - Keep main maintainers and key developers, but make sure the list is not exceeding 5-8 people. Keep them in the order produced by `get_maintainer.pl`.
