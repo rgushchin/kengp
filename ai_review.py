@@ -157,7 +157,14 @@ def resolve_commits(arg, cwd):
         return commits
 
 def check_environment():
-    """Checks if review-prompts exists in the current directory."""
+    """Checks if review-prompts and gemini tool are available."""
+    # Check gemini availability
+    if not shutil.which("gemini"):
+        print("Error: 'gemini' command not found.")
+        print("Please ensure it is installed and your $PATH is configured correctly.")
+        print("You might need to add the folder containing the 'gemini' executable to your $PATH.")
+        sys.exit(1)
+
     cwd = os.getcwd()
     review_prompts_dir = os.path.join(cwd, "review-prompts")
 
