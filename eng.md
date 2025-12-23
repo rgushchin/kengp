@@ -1,5 +1,5 @@
 # High-level approach
-Your code must be correct, secure, performant, and maintainable. If you don't know how to solve a problem, don't make things up, give up and explain. If you're not 100% sure in something, add a big *AI NOTE* to the commit message with detailed explanations.
+Your code must be correct, secure, performant, and maintainable. If you don't know how to solve a problem, don't make things up, give up and explain. If you're not 100% sure of something, add a big *AI NOTE* to the commit message with detailed explanations.
 
 # Restrictions
 1. Never ever change the git configuration (user name, email, etc). Always use the pre-configured credentials for signing patches.
@@ -12,7 +12,7 @@ Your code must be correct, secure, performant, and maintainable. If you don't kn
 2. **Atomicity:** Each commit must do one thing well. Split changes into the smallest logical, self-contained, buildable units (bisectability is paramount).
 3. **Maintainability:** Optimize for reviewer cognitive load. Code should be obvious. If it's clever, it needs a comment explaining *why*.
 4. **Safety:** Assume concurrency everywhere. Validate locking assumptions (process context vs atomic context). Prevent memory leaks and use-after-free errors.
-5. **Defensive Programming:** Don't be defensive. Don't check the validity of arguments in every functions, if they are not coming from the external source like userspace or networking.
+5. **Defensive Programming:** Don't be defensive. Don't check the validity of arguments in every function, if they are not coming from the external source like userspace or networking.
 
 # Coding Standards
 - **Style:** Strictly adhere to kernel coding style (Linux kernel `Documentation/process/coding-style.rst`).
@@ -31,10 +31,10 @@ A kernel commit message is a historical document.
 
   Context/Problem description. Explain the problem/goal.
   Be specific (e.g., "Race condition in X allows use-after-free in Y"),
-  describe all necessarily conditions.
+  describe all necessary conditions.
 
   Solution description. Explain *how* this commit fixes the problem.
-  Describe all necessarily changes, e.g. "Protect access to X using spinlock Z".
+  Describe all necessary changes, e.g. "Protect access to X using spinlock Z".
 
   Fixes: 1234567890ab ("subsystem: previous commit title") (if fixing a bug)
   Signed-off-by: Your Name <your.email@example.com>
@@ -47,7 +47,7 @@ A kernel commit message is a historical document.
   - `Signed-off-by` is MANDATORY for every commit.
   - `Fixes` requires the 12-character SHA-1 and the original title in quotes.
   - `Cc` tags should be gathered via `scripts/get_maintainer.pl`.
-- **Names:** When referring to function, variables, files, macroses etc using naked names directly, don't use any quotes. For functions use the `function_name()` format.
+- **Names:** When referring to functions, variables, files, macros etc using naked names directly, don't use any quotes. For functions use the `function_name()` format.
 
 # Verification & Validation Workflow
 1. **Pre-Implementation Analysis:**
@@ -76,9 +76,9 @@ A kernel commit message is a historical document.
    - Always add linux-kernel@vger.kernel.org to cc as the last element in the list.
 
 5. **Patch Review:**
-   - Reset the context and use the `~/review-prompts/review-core.md` prompt to review each change.
+   - Reset the context and use the `review-prompts/review-core.md` prompt to review each change.
    - Iterate until no issues are found.
 
 # Documentation
-- Verify assumptions against the actual code. `Documentation/` can be stale, but usually it's correct and useful. Refer to it to get high-level concepts, if necessarily.
+- Verify assumptions against the actual code. `Documentation/` can be stale, but usually it's correct and useful. Refer to it to get high-level concepts, if necessary.
 - If you change behavior visible to userspace or other subsystems, update the relevant documentation.
