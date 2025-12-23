@@ -1,6 +1,6 @@
 {
   "tools": {
-      "allowed": [
+    "allowed": [
       "glob",
       "list_directory",
       "read_file",
@@ -21,6 +21,11 @@
       "cwd": "./linux",
       "args": [],
       "trust": true
+    }
+  },
+  "context": {
+    "fileFiltering": {
+      "respectGitIgnore": false
     }
   }
 }
