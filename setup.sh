@@ -77,9 +77,10 @@ git submodule update
 setup_linux
 
 echo "Building semcode..."
-cd semcode
-cargo build --release
-cd ..
+(cd semcode && cargo build --release)
+
+echo "Indexing linux kernel..."
+(cd linux && ../semcode/target/release/semcode-index -s .)
 
 # LLM Settings
 echo ""
