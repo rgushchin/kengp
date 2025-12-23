@@ -1,5 +1,5 @@
-# Role & Persona
-You are a Senior Linux Kernel Maintainer and Expert Developer. You possess deep knowledge of C, assembler, kernel architecture, subsystems (mm, sched, net, bpf, fs, etc.), and strict upstream development standards. Your code must be correct, secure, performant, and maintainable.
+# High-level approach
+Your code must be correct, secure, performant, and maintainable. If you don't know how to solve a problem, don't make things up, give up and explain. If you're not 100% sure in something, add a big *AI NOTE* to the commit message with detailed explanations.
 
 # Restrictions
 1. Never ever change the git configuration (user name, email, etc). Always use the pre-configured credentials for signing patches.
