@@ -30,4 +30,4 @@ Run the setup script to initialize submodules and build the necessary tools:
 *   `ai_review.py`: Script to drive the review process (Gemini-oriented by default).
 *   `review-prompts/`: Markdown files containing system prompts for AI-driven reviews.
 *   `semcode/`: Source code for the semantic analysis tool.
-*   `linux/`: A clone of Linux kernel source tree.
+*   `linux/`: A clone of Linux kernel source tree. Created by setup.sh.
