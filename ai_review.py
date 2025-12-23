@@ -6,6 +6,7 @@ import argparse
 import re
 import shutil
 import datetime
+import json
 
 def run_command(command, check=True, capture_output=True, text=True, cwd=None):
     """Runs a shell command and returns the completed process object."""
@@ -156,13 +157,27 @@ def resolve_commits(arg, cwd):
 
         return commits
 
-def check_environment():
-    """Checks if review-prompts and gemini tool are available."""
-    # Check gemini availability
-    if not shutil.which("gemini"):
-        print("Error: 'gemini' command not found.")
+def load_settings():
+    """Loads settings from .engp.json."""
+    settings_path = ".engp.json"
+    default_settings = {
+        "llm_agent": "gemini",
+        "llm_model": "gemini-3-pro-preview"
+    }
+    if os.path.exists(settings_path):
+        try:
+            with open(settings_path, 'r') as f:
+                return {**default_settings, **json.load(f)}
+        except Exception as e:
+            print(f"Warning: Could not read {settings_path}: {e}. Using defaults.")
+    return default_settings
+
+def check_environment(agent_command):
+    """Checks if review-prompts and configured LLM tool are available."""
+    # Check agent availability
+    if not shutil.which(agent_command):
+        print(f"Error: '{agent_command}' command not found.")
         print("Please ensure it is installed and your $PATH is configured correctly.")
-        print("You might need to add the folder containing the 'gemini' executable to your $PATH.")
         sys.exit(1)
 
     cwd = os.getcwd()
@@ -188,16 +203,19 @@ It can process a single commit (HEAD), a number of recent commits, or a range of
   ./ai_review.py 3          # Analyze last 3 commits
   ./ai_review.py HEAD~2..HEAD # Analyze last 2 commits using range
 """
+    settings = load_settings()
+    
     parser = argparse.ArgumentParser(
         description=description,
         epilog=epilog,
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
     parser.add_argument("revision", nargs="?", help="Git commit range, number of commits, or empty for HEAD.")
-    parser.add_argument("-m", "--model", default="gemini-3-pro-preview", help="LLM model to use (default: gemini-3-pro-preview).")
+    parser.add_argument("-m", "--model", default=settings["llm_model"], help=f"LLM model to use (default: {settings['llm_model']}).")
+    parser.add_argument("--agent", default=settings["llm_agent"], help=f"LLM agent to use (default: {settings['llm_agent']}).")
     args = parser.parse_args()
 
-    check_environment()
+    check_environment(args.agent)
 
     # Current working directory is the base
     base_dir = os.getcwd()
@@ -283,11 +301,11 @@ It can process a single commit (HEAD), a number of recent commits, or a range of
             # Run ai_review
             prompt = f"Using @./review-prompts/review-core.md prompt as a guidance run a deep dive regression analysis of the top commit in the ./linux directory. If you cannot read the prompt, bail out."
             
-            gemini_cmd = f"gemini --approval-mode auto_edit -m {model_name} '{prompt}'"
+            agent_cmd = f"{args.agent} --approval-mode auto_edit -m {model_name} '{prompt}'"
 
-            # Run gemini from base_dir (current folder)
-            print(f"  Running analysis...")
-            proc = run_streaming_command(gemini_cmd, cwd=base_dir)
+            # Run agent from base_dir (current folder)
+            print(f"  Running analysis using {args.agent}...")
+            proc = run_streaming_command(agent_cmd, cwd=base_dir)
             
             commit_section = f"# Commit {commit_ref}\n"
             current_regressions = "N/A"
