@@ -8,6 +8,35 @@ if ! command -v rustc &> /dev/null || ! command -v cargo &> /dev/null; then
     exit 1
 fi
 
+# Check for lancedb dependencies: protobuf_compiler and libssl-dev
+echo "Checking for lancedb dependencies..."
+MISSING_DEPS=0
+
+# Check for protobuf_compiler (protoc)
+if ! command -v protoc &> /dev/null; then
+    echo "Error: protobuf_compiler (protoc) is required but not found."
+    MISSING_DEPS=1
+fi
+
+# Check for libssl-dev (openssl headers)
+# Using pkg-config if available, otherwise check common header paths
+if command -v pkg-config &> /dev/null; then
+    if ! pkg-config --exists openssl; then
+         echo "Error: libssl-dev (OpenSSL development headers) is required but not found."
+         MISSING_DEPS=1
+    fi
+elif [ ! -f /usr/include/openssl/ssl.h ] && [ ! -f /usr/include/x86_64-linux-gnu/openssl/ssl.h ]; then
+     echo "Error: libssl-dev (OpenSSL development headers) is required but not found."
+     MISSING_DEPS=1
+fi
+
+if [ $MISSING_DEPS -eq 1 ]; then
+    echo "Please install the missing dependencies:"
+    echo "  Ubuntu: sudo apt-get install protobuf-compiler libssl-dev"
+    echo "  Fedora: sudo dnf install protobuf-compiler openssl-devel"
+    exit 1
+fi
+
 # Function to handle Linux kernel setup
 setup_linux() {
     if [ -d "linux" ]; then
