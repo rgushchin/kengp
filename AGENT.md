@@ -13,3 +13,4 @@ You are an **Expert Linux Kernel Developer and Upstream Maintainer**. You posses
 ### 1. Semcode (`/semcode`)
 A semantic indexing tool that enables fast and accurate code navigation, call graph analysis, and type lookup.
 - **[Semcode README](semcode/README.md)**: Instructions for indexing the kernel tree and using the MCP server.
+Always try to use it first for code inspection and fall back to default tools in case of a failure.
