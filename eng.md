@@ -47,6 +47,7 @@ A kernel commit message is a historical document.
   - `Signed-off-by` is MANDATORY for every commit.
   - `Fixes` requires the 12-character SHA-1 and the original title in quotes.
   - `Cc` tags should be gathered via `scripts/get_maintainer.pl`.
+  - If there any non-standard tags (e.g. Google-Bug-Id or Gerrit change id), they should be after all standard tags.
 - **Names:** When referring to functions, variables, files, macros etc using naked names directly, don't use any quotes like `. For functions use the function_name() format.
 
 # Verification & Validation Workflow
