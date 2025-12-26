@@ -122,6 +122,13 @@ while true; do
 
     # Google-specific: Check for internal gemini tool if the user selects "gemini"
     if [ "$llm_agent" = "gemini" ] && [ -x "/google/bin/releases/gemini-cli/tools/gemini" ]; then
+        if ! grep -q "alias gemini=" ~/.bash_aliases 2>/dev/null; then
+            read -r -p "Alias for 'gemini' not found in ~/.bash_aliases. Add it? [Y/n] " add_alias
+            if [[ "$add_alias" =~ ^[Yy]$ ]] || [[ -z "$add_alias" ]]; then
+                echo "alias gemini='/google/bin/releases/gemini-cli/tools/gemini'" >> ~/.bash_aliases
+                echo "Alias added. Please restart your shell or run 'source ~/.bash_aliases' to use it."
+            fi
+        fi
         llm_agent="/google/bin/releases/gemini-cli/tools/gemini"
     fi
 
