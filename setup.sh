@@ -148,12 +148,12 @@ fi
 read -r -p "Enter model to use [gemini-3-pro-preview]: " llm_model
 llm_model=${llm_model:-gemini-3-pro-preview}
 
-cat <<EOF > .engp.json
+cat <<EOF > .kengp.json
 {
   "llm_agent": "$llm_agent",
   "llm_model": "$llm_model"
 }
 EOF
-echo "Settings saved to .engp.json"
+echo "Settings saved to .kengp.json"
 
 echo "Done"

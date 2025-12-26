@@ -158,8 +158,8 @@ def resolve_commits(arg, cwd):
         return commits
 
 def load_settings():
-    """Loads settings from .engp.json."""
-    settings_path = ".engp.json"
+    """Loads settings from .kengp.json."""
+    settings_path = ".kengp.json"
     default_settings = {
         "llm_agent": "gemini",
         "llm_model": "gemini-3-pro-preview"
