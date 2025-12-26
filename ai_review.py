@@ -173,13 +173,7 @@ def load_settings():
     return default_settings
 
 def check_environment(agent_command):
-    """Checks if review-prompts and configured LLM tool are available."""
-    # Check agent availability
-    if not shutil.which(agent_command):
-        print(f"Error: '{agent_command}' command not found.")
-        print("Please ensure it is installed and your $PATH is configured correctly.")
-        sys.exit(1)
-
+    """Checks if review-prompts are available."""
     cwd = os.getcwd()
     review_prompts_dir = os.path.join(cwd, "review-prompts")
 
