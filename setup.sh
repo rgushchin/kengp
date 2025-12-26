@@ -114,12 +114,28 @@ echo "Indexing linux kernel..."
 # LLM Settings
 echo ""
 echo "Configuring LLM Settings..."
-read -r -p "Enter LLM CLI agent to use [gemini]: " llm_agent
-llm_agent=${llm_agent:-gemini}
+while true; do
+    read -e -r -p "Enter a path to LLM CLI agent to use [gemini]: " llm_agent
+    llm_agent=${llm_agent:-gemini}
+    # Expand tilde (~)
+    llm_agent="${llm_agent/#\~/$HOME}"
 
-if ! command -v "$llm_agent" &> /dev/null; then
-    echo "Warning: '$llm_agent' command not found in your PATH."
-    echo "Please ensure it is installed and added to your \$PATH."
+    # Google-specific: Check for internal gemini tool if the user selects "gemini"
+    if [ "$llm_agent" = "gemini" ] && [ -x "/google/bin/releases/gemini-cli/tools/gemini" ]; then
+        llm_agent="/google/bin/releases/gemini-cli/tools/gemini"
+    fi
+
+    if command -v "$llm_agent" &> /dev/null; then
+        break
+    else
+        echo "Error: '$llm_agent' command not found."
+    fi
+done
+
+echo "Verifying '$llm_agent'..."
+if ! echo "hello" | "$llm_agent" &> /dev/null; then
+    echo "Error: Failed to execute '$llm_agent' with a simple prompt."
+    echo "Please ensure it is correctly installed and configured (e.g. API keys)."
 fi
 
 read -r -p "Enter model to use [gemini-3-pro-preview]: " llm_model
