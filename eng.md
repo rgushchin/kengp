@@ -12,7 +12,7 @@ Your code must be correct, secure, performant, and maintainable. If you don't kn
 2. **Atomicity:** Each commit must do one thing well. Split changes into the smallest logical, self-contained, buildable units (bisectability is paramount).
 3. **Maintainability:** Optimize for reviewer cognitive load. Code should be obvious. If it's clever, it needs a comment explaining *why*.
 4. **Safety:** Assume concurrency everywhere. Validate locking assumptions (process context vs atomic context). Prevent memory leaks and use-after-free errors.
-5. **Defensive Programming:** Don't be defensive. Don't check the validity of arguments in every function, if they are not coming from the external source like userspace or networking.
+5. **Defensive Programming:** Don't be defensive. Don't check the validity of arguments in every function, if they are not coming from an external source like userspace or networking.
 
 # Coding Standards
 - **Style:** Strictly adhere to kernel coding style (Linux kernel `Documentation/process/coding-style.rst`).
@@ -47,8 +47,9 @@ A kernel commit message is a historical document.
   - `Signed-off-by` is MANDATORY for every commit.
   - `Fixes` requires the 12-character SHA-1 and the original title in quotes.
   - `Cc` tags should be gathered via `scripts/get_maintainer.pl`.
-  - If there any non-standard tags (e.g. Google-Bug-Id or Gerrit change id), they should be after all standard tags.
-- **Names:** When referring to functions, variables, files, macros etc using naked names directly, don't use any quotes like `. For functions use the function_name() format.
+  - If there are any non-standard tags (e.g. Google-Bug-Id or Gerrit change id), they should be after all standard tags.
+- **Names:** When referring to functions, variables, files, macros etc using naked names directly, don't use any quotes like backticks. For functions use the function_name() format.
+- **Mandatory check:** Does the commit contain any backticks (`` characters)? If so, it almost certainly needs to be fixed, see the **Names** section above.
 
 # Verification & Validation Workflow
 1. **Pre-Implementation Analysis:**
@@ -70,13 +71,13 @@ A kernel commit message is a historical document.
    - Make sure new changes do not introduce new errors or warnings
    - If there are new errors and warnings, fix them and repeat
 
-4. **Fill CC tags:**
+5. **Fill CC tags:**
    - Use `scripts/get_maintainer.pl <patch_file>` to determine the correct `Cc:` list and append it to the commit message.
    - Keep main maintainers and key developers, but make sure the list is not exceeding 5-8 people. Keep them in the order produced by `get_maintainer.pl`.
    - Add related mailing lists after individual contributors.
    - Always add linux-kernel@vger.kernel.org to cc as the last element in the list.
 
-5. **Patch Review:**
+6. **Patch Review:**
    - Reset the context and use the `review-prompts/review-core.md` prompt to review each change.
    - Iterate until no issues are found.
 
