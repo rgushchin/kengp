@@ -5,7 +5,7 @@ This repository contains a specialized environment and toolkit for AI-assisted L
 ## Features
 
 *   **Maintainer Persona:** `AGENT.md` defines the persona and standards for the AI agent, ensuring code and commit messages meet the high bar of the Linux kernel community.
-*   **AI-Assisted Review:** Includes `ai_review.py` to automate code reviews using specialized prompts, primarily optimized for Gemini but adaptable for other models.
+*   **AI-Assisted Review:** Includes `ai_review.py` to automate code reviews using specialized prompts.
 *   **Subsystem-Specific Prompts:** A collection of review prompts in `review-prompts/` tailored for various kernel subsystems (block, mm, net, sched, etc.). Authored by Chris Mason (https://github.com/masoncl/review-prompts/tree/main).
 *   **Semantic Code Analysis:** Integrates with `semcode` (built via `setup.sh`) for semantic code search and understanding. Cloned from https://github.com/masoncl/semcode-devel .
 
@@ -27,7 +27,7 @@ Run the setup script to initialize submodules and build the necessary tools:
 
 *   `AGENT.md`: The core system prompt defining the developer persona and guidelines.
 *   `eng.md`: Detailed guidance on how to create and validate kernel changes.
-*   `ai_review.py`: Script to drive the review process (Gemini-oriented by default).
+*   `ai_review.py`: Script to drive the review process.
 *   `review-prompts/`: Markdown files containing system prompts for AI-driven reviews.
 *   `semcode/`: Source code for the semantic analysis tool.
 *   `linux/`: A clone of Linux kernel source tree. Created by setup.sh.
