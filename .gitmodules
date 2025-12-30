@@ -4,4 +4,4 @@
 [submodule "semcode"]
 	path = semcode
 	url = git@github.com:rgushchin/semcode-devel.git
-	branch = rust_186
+	branch = rustc_1_86
