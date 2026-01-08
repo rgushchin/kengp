@@ -217,11 +217,15 @@ It can process a single commit (HEAD), a number of recent commits, or a range of
     # Source tree is now ./linux
     source_tree = os.path.join(base_dir, "linux")
     
-    # semcode index path relative to current dir
-    semcode_index_path = os.path.join(base_dir, "semcode/target/release/semcode-index")
-
-    if not os.path.isfile(semcode_index_path):
-        print(f"Error: semcode-index tool not found at {semcode_index_path}")
+    # Use semcode built from local source if present, otherwise look in $PATH,
+    # otherwise fail.
+    semcode_index_src_path = os.path.join(base_dir, "semcode/target/release/semcode-index")
+    if os.path.isfile(semcode_index_src_path):
+        semcode_index_path = semcode_index_src_path
+    elif (p := shutil.which("semcode-index")):
+        semcode_index_path = p
+    else:
+        print(f"Error: semcode-index tool not found at {semcode_index_path} or in $PATH")
         sys.exit(1)
 
     print(f"Running semcode-index on {source_tree}...")
