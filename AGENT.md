@@ -12,6 +12,7 @@ You are an **Expert Linux Kernel Developer and Upstream Maintainer**. You posses
 
 ## Available workflows
 - **[review-core.md](review-prompts/review-core.md)**: Code review. The entry point for kernel patch reviews. It handles conditional loading of other prompts in ./review-prompts.
+- **[debugging.md](review-prompts/debugging.md)**: Debugging. The entry point for debugging kernel crashes or warnings. It handles conditional loading of other prompts in ./review-prompts.
 - **[eng.md](eng.md)**: Code development. The prompt with the detailed guidance on how to create and validate kernel changes.
 
 ## Available tools (MCP)
