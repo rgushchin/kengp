@@ -162,7 +162,8 @@ def load_settings():
     settings_path = ".kengp.json"
     default_settings = {
         "llm_agent": "gemini",
-        "llm_model": "gemini-3-pro-preview"
+        "llm_model": "gemini-3-pro-preview",
+        "llm_project": None
     }
     if os.path.exists(settings_path):
         try:
@@ -207,6 +208,7 @@ It can process a single commit (HEAD), a number of recent commits, or a range of
     parser.add_argument("revision", nargs="?", help="Git commit range, number of commits, or empty for HEAD.")
     parser.add_argument("-m", "--model", default=settings["llm_model"], help=f"LLM model to use (default: {settings['llm_model']}).")
     parser.add_argument("--agent", default=settings["llm_agent"], help=f"LLM agent to use (default: {settings['llm_agent']}).")
+    parser.add_argument("-p", "--project", default=settings["llm_project"], help=f"LLM project to use (default: {settings['llm_project']}).")
     args = parser.parse_args()
 
     check_environment(args.agent)
@@ -299,7 +301,10 @@ It can process a single commit (HEAD), a number of recent commits, or a range of
             # Run ai_review
             prompt = f"Using @./review-prompts/review-core.md prompt as a guidance run a deep dive regression analysis of the top commit in the ./linux directory. If you cannot read the prompt, bail out."
             
-            agent_cmd = f"{args.agent} --approval-mode auto_edit -m {model_name} '{prompt}'"
+            agent_cmd = f"{args.agent} --approval-mode auto_edit -m {model_name}"
+            if args.project:
+                agent_cmd += f" --project {args.project}"
+            agent_cmd += f" '{prompt}'"
 
             # Run agent from base_dir (current folder)
             print(f"  Running analysis using {args.agent}...")
