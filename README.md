@@ -23,6 +23,9 @@ Run the setup script to initialize submodules and build the necessary tools:
 ./setup.sh
 ```
 
+Nix users can instead just do `nix run github:rgushchin/kengp`. This doesn't use
+an agent from Nixpkgs, it still just expects to find the AI tool in your `PATH`.
+
 ## Directory Structure
 
 *   `AGENT.md`: The core system prompt defining the developer persona and guidelines.
