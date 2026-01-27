@@ -301,10 +301,10 @@ It can process a single commit (HEAD), a number of recent commits, or a range of
             # Run ai_review
             prompt = f"Using @./review-prompts/review-core.md prompt as a guidance run a deep dive regression analysis of the top commit in the ./linux directory. If you cannot read the prompt, bail out."
             
-            agent_cmd = f"{args.agent} --approval-mode auto_edit -m {model_name}"
+            agent_cmd = f"{args.agent} --approval-mode auto_edit -e '' -m {model_name}"
             if args.project:
                 agent_cmd += f" --project {args.project}"
-            agent_cmd += f" '{prompt}'"
+            agent_cmd += f" -p '{prompt}'"
 
             # Run agent from base_dir (current folder)
             print(f"  Running analysis using {args.agent}...")
