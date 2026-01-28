@@ -139,12 +139,6 @@ while true; do
     fi
 done
 
-echo "Verifying '$llm_agent'..."
-if ! echo "hello" | "$llm_agent" &> /dev/null; then
-    echo "Error: Failed to execute '$llm_agent' with a simple prompt."
-    echo "Please ensure it is correctly installed and configured (e.g. API keys)."
-fi
-
 read -r -p "Enter model to use [gemini-3-pro-preview]: " llm_model
 llm_model=${llm_model:-gemini-3-pro-preview}
 
