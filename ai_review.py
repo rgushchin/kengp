@@ -345,7 +345,7 @@ It can process a single commit (HEAD), a number of recent commits, or a range of
                     commit_section += "No detailed regression report generated.\n"
             else:
                 print(f"  Failed.")
-                commit_section += f"Error running review tool.\nStderr:\n{proc.stderr}\n"
+                commit_section += f"Error running review tool.\nStderr:\n{proc.stderr}\nStdout:\n{proc.stdout}\n"
 
             commit_results.append((commit_ref, current_regressions))
             report_content.append(commit_section)
